@@ -1,6 +1,6 @@
 # rk-serial 串口调试助手
 
-Rockchip RT-Thread 板卡多串口调试助手（Tauri 桌面 GUI + Python 串口服务端）。
+Rockchip RT-Thread 板卡多串口调试助手（Tauri 桌面 GUI + **进程内 Rust 串口后端**）。
 
 本仓库为 **公开发布仓库**：仅提供编译好的程序与下载说明，**不含源码**。
 
@@ -10,14 +10,15 @@ Rockchip RT-Thread 板卡多串口调试助手（Tauri 桌面 GUI + Python 串�
 
 | 文件 | 说明 |
 | --- | --- |
-| `rk-serial-vX.Y.Z-portable.zip` | 绿色版：解压后 `rk-serial-desktop.exe` 与 `rk_serial_service.exe` 放同一目录，双击即用 |
+| `rk-serial-vX.Y.Z-portable.zip` | 绿色版：解压后 `rk-serial-desktop.exe` 与 `rk-serial-bridge.exe`（Agent 用 CDP 桥，可选用）放同一目录，双击即用 |
 | `rk-serial_X.Y.Z_x64-setup.exe` | NSIS 安装包（推荐）：自动安装并覆盖旧版本，自带 WebView2 引导 |
 | `rk-serial_X.Y.Z_x64_en-US.msi` | MSI 安装包 |
 
 ## 安装与更新
 
 - **安装包**：运行 `x64-setup.exe` 按向导安装；下次有新版时，应用内“关于 → 检查更新 → 下载并安装更新”会自动下载安装包并启动覆盖安装。
-- **绿色版**：解压 zip 即可；升级时下载新 zip 覆盖同目录两个 exe 即可（数据默认保存在程序目录 `runtime\`）。
+- **绿色版**：解压 zip 即可；升级时下载新 zip 覆盖同目录 exe 即可（数据默认保存在程序目录 `runtime\`）。
+- 自 v3.0.0 起，串口后端内置于 GUI 进程（Rust），绿色版**无需任何 Python/uv 环境**；`rk_serial_service.exe` 仅为可选的旧后端回退。
 - 应用启动时会自动检查新版本，状态栏“关于”按钮出现红点时表示有更新。
 
 ## 系统要求
