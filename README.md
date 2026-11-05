@@ -15,12 +15,17 @@ Rockchip RT-Thread 板卡多串口调试助手（Tauri 桌面 GUI + **进程内 
 | `rk-serial_X.Y.Z_x64_en-US.msi` | MSI 安装包 |
 | `rk-serial_X.Y.Z_amd64.deb` | Ubuntu x86_64 / amd64 安装包 |
 | `rk-serial_X.Y.Z_arm64.deb` | Ubuntu ARM64 / aarch64 安装包 |
+| `rk-serial_X.Y.Z_amd64.AppImage` | Ubuntu x86_64 便携版 |
+| `rk-serial_X.Y.Z_arm64.AppImage` | Ubuntu ARM64 便携版 |
 
 ## 安装与更新
 
 - **安装包**：运行 `x64-setup.exe` 按向导安装；下次有新版时，应用内“关于 → 检查更新 → 下载并安装更新”会自动下载安装包并启动覆盖安装。
 - **绿色版**：解压 zip 即可；升级时下载新 zip 覆盖同目录 exe 即可（数据默认保存在程序目录 `runtime\`）。
-- **Ubuntu**：下载与系统架构匹配的 `.deb`，双击安装，或运行 `sudo apt install ./rk-serial_X.Y.Z_amd64.deb`（ARM64 使用 `_arm64.deb`）。应用内检查更新会下载 `.deb` 并打开系统安装器。
+- **Ubuntu 安装版**：下载与系统架构匹配的 `.deb`，双击安装，或运行 `sudo apt install ./rk-serial_X.Y.Z_amd64.deb`（ARM64 使用 `_arm64.deb`）。应用内检查更新会下载 `.deb` 并打开系统安装器。
+- **Ubuntu 便携版**：下载与系统架构匹配的 AppImage，赋予执行权限后运行；无 FUSE 时可使用 `--appimage-extract-and-run`。内置 GTK/WebKit，仍需要主机图形驱动；可在应用内更新可写的 AppImage，移动文件后请通过 Agent 连接面板重新安装 skill。
+- **差量更新**：有匹配的旧安装包时优先下载并校验差量包；旧包缺失或校验失败时自动下载完整安装包。旧版本首次升级仍按原有方式更新。
+- **Ubuntu 串口权限**：如提示权限不足，可将当前用户加入 `dialout` 组（`sudo usermod -aG dialout "$USER"`）并重新登录。
 - 自 v3.0.0 起，串口后端内置于 GUI 进程（Rust），绿色版**无需任何 Python/uv 环境**；`rk_serial_service.exe` 仅为可选的旧后端回退。
 - 应用启动时会自动检查新版本，状态栏“关于”按钮出现红点时表示有更新。
 
