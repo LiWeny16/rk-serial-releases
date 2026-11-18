@@ -22,37 +22,57 @@ rk-serial grew out of board bring-up and debugging at Rockchip. Agent sessions, 
 
 A serial connection needs one owner. Scripts that open the device independently compete for it. Scripts writing directly to a shared connection can interleave commands and replies.
 
-**rk-serial solution.** The desktop owns the connection. Agents share port state, tasks, and logs, with an independent read cursor for each agent. A per-port lock lets the current holder finish its sequence while other agents wait in first-in, first-out order.
+**rk-serial solution**
+
+- The desktop owns the connection. Agents share port state, tasks, and logs.
+- Multiple agents can read the same port concurrently, each with its own cursor.
+- Each port has its own queue. The current holder can finish a sequence while other agents wait in arrival order.
 
 ### Problem 2: An engineer interrupts an agent procedure
 
 A command typed into the terminal can land between two steps of an agent's procedure and make the responses hard to interpret.
 
-**rk-serial solution.** Human sends and agent control use the same per-port coordination. The terminal reports the port as busy while an agent holds control. The engineer can resume sending when control is released and can keep using other ports in the meantime.
+**rk-serial solution**
+
+- Human sends and agent control use the same per-port lock. The terminal reports the port as busy while an agent holds it. The engineer can send again once the agent releases it.
+- Other ports remain available during the procedure.
 
 ### Problem 3: The engineer loses visibility during an agent task
 
 When an agent uses a separate script, the engineer may have to wait for its report to see what it sent, what the board returned, or who is using the port.
 
-**rk-serial solution.** The terminal keeps showing traffic, and the port tab and status bar show AI activity. Agent Connection shows registered tasks, control holders, and waiting requests.
+**rk-serial solution**
+
+- The terminal keeps showing traffic. The port tab and status bar indicate AI activity.
+- Agent Connection shows registered tasks, who controls each port, and who is waiting.
 
 ### Problem 4: Repetitive logs fill the agent's context
 
 Passing the full log or repeatedly reading a fixed-size tail uses tokens on duplicate output and makes rare changes hard to spot.
 
-**rk-serial solution.** L0 retains the original traffic, L1 builds a rebuildable compressed index of templates and parameters, and L2 returns match counts, changes, and evidence references. Agents can expand the original evidence when needed and follow new data with a cursor.
+**rk-serial solution**
+
+- **Structured compression.** L1 uses rules to extract templates and parameters and deduplicates exact matches. L0 retains the original traffic.
+- **Incremental queries.** L2 returns match counts, changes, and evidence references. Agents use a cursor to read new results and retrieve original lines on demand.
+- **95.35% fewer tokens in a hardware test.** The same regex matched 235 build-version lines in an eight-hour RT-Thread serial capture. Sending every match to the agent took **5,640 tokens**. The rk-serial summary and one original line took **262 tokens**. [Benchmark method](#token-comparison)
 
 ### Problem 5: Intermittent faults are hard to record and reproduce
 
 Copying terminal output can miss the traffic around a fault. Ad hoc scripts need their own scheduling, recording, and retry logic.
 
-**rk-serial solution.** Serial Record supports duration, loop count, and capacity rules, with optional command loops and evidence export. Save repeatable batches or acceptance checks and use request IDs to avoid accidental resends.
+**rk-serial solution**
+
+- Run Serial Record by duration, loop count, or capacity, with optional command loops and evidence export.
+- Save repeatable batches or acceptance checks. Request IDs prevent duplicate sends on retry.
 
 ### Problem 6: Changing workstations or target systems disrupts the workflow
 
 A team may use different desktop operating systems and switch between Linux and RT-Thread targets. That can mean setting up new tooling or hunting for commands again.
 
-**rk-serial solution.** Windows x64 and Ubuntu LTS amd64 and arm64 builds use the same Agent commands and workflow. The built-in command catalog covers Linux, RT-Thread, and general commands, with a shared list for frequently used shortcuts.
+**rk-serial solution**
+
+- Use the same Agent commands and debugging workflow on Windows x64 and Ubuntu LTS amd64 or arm64.
+- Add frequently used Linux, RT-Thread, and general commands from the built-in catalog to a shared shortcuts list.
 
 ## Serial tool comparison
 
@@ -120,10 +140,13 @@ The table compares passing log text directly to an agent with the responses from
 
 | Measured task | Send log text to the agent | rk-serial responses | Fewer tokens |
 | --- | ---: | ---: | ---: |
+| **Find build-version lines in an eight-hour RT-Thread hardware capture** (v3.22.5) | All 235 regex matches · **5,640** | L2 summary and one original L0 line · **262** | **95.35%** |
 | **Find one rare change among 100,001 error lines** (v3.22.5) | All matching lines · **1,000,010** | Query and evidence expansion · **367** | **99.96%** |
 | **Search about 50 MiB of archived logs** (v3.13 benchmark) | Entire log · **13,516,805** | 29 compact query pages · **6,665** | **99.95%** |
 
-Both benchmarks used synthetic samples. In the first, 100,000 matching lines repeated the same error and one had a different code. The query searched for `ERROR` and expanded the rare result to verify its original bytes. It used the L0 scan fallback. Actual token usage depends on the log, query, and tokenizer.
+The hardware capture contained 1,411 lines. Both methods used `\b[0-9]+\.[0-9]+\.[0-9]+\s+build\b` and found the same 235 lines. The regex baseline counted all matching lines as plain text. rk-serial counted both complete responses: 186 tokens for the L2 query backed by the L1 index and 76 for the L0 evidence expansion.
+
+The last two benchmarks used synthetic samples. The 100,001-line case used an L0 scan to find the rare error code and retrieved its original bytes using the evidence reference. Actual token usage depends on the log, query, and tokenizer.
 
 ## Feature highlights
 
