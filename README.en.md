@@ -4,10 +4,11 @@
 
 <h1 align="center">rk-serial</h1>
 
-<p align="center">Desktop serial debugging for engineers and AI agents</p>
+<p align="center"><strong>AI-native, cross-platform serial debugging</strong><br>Windows x64 · Ubuntu LTS amd64 / arm64</p>
 
 <p align="center">
   <a href="#download-and-install">Download</a> ·
+  <a href="#serial-tool-comparison">Compare tools</a> ·
   <a href="#agent-control-demo">Demo</a> ·
   <a href="#architecture-and-log-layers">Architecture</a> ·
   <a href="README.md">简体中文</a>
@@ -15,15 +16,70 @@
 
 ## What rk-serial solves
 
-rk-serial grew out of board bring-up and debugging at Rockchip. It gives engineers and AI agents a shared desktop workspace for serial debugging.
+rk-serial grew out of board bring-up and debugging at Rockchip. Agent sessions, port ownership, and log evidence are built into the desktop app. Engineers use the GUI, while agents use the bundled skill and bridge to inspect state, control ports, and run tasks in the same workspace.
 
-| Workflow | What can go wrong with a typical setup | How rk-serial helps |
-| --- | --- | --- |
-| Multiple agents share a port | Separate agents compete to open the device. Shared scripts can interleave commands and replies. | Agents read concurrently with independent cursors. Writes queue in order per port, and an agent can hold control for a sequence of operations. |
-| An engineer and an agent work on the same port | A command entered in the terminal can interrupt an agent procedure. | The desktop owns the connection. It reports the port as busy while an agent holds control, then lets the engineer resume sending. Each port is coordinated independently. |
-| An engineer follows agent activity | When an agent uses a separate script, the engineer usually has to wait for its report. | The terminal keeps showing traffic and logs. The port tab shows AI activity. Agent Connection shows registered tasks, the current holder, and the queue. |
-| A rare change is buried in a long log | Sending the whole log or repeatedly reading its tail fills the context with duplicate output. | L0 keeps the original evidence, L1 indexes templates and parameters, and L2 returns counts, changes, and references. Agents can expand the evidence that matters. |
-| An intermittent issue needs a recording or a repeatable check | Copying terminal output loses context. Ad hoc scripts need their own recording, polling, and retry logic. | Serial Record can run by duration, loop count, or capacity and export evidence. Saved batches and checks use request IDs to avoid resending on retries. |
+### Problem 1: Multiple agents run scripts against the same port
+
+A serial connection needs one owner. Scripts that open the device independently compete for it. Scripts writing directly to a shared connection can interleave commands and replies.
+
+**rk-serial solution.** The desktop owns the connection. Agents share port state, tasks, and logs, with an independent read cursor for each agent. A per-port lock lets the current holder finish its sequence while other agents wait in first-in, first-out order.
+
+### Problem 2: An engineer interrupts an agent procedure
+
+A command typed into the terminal can land between two steps of an agent's procedure and make the responses hard to interpret.
+
+**rk-serial solution.** Human sends and agent control use the same per-port coordination. The terminal reports the port as busy while an agent holds control. The engineer can resume sending when control is released and can keep using other ports in the meantime.
+
+### Problem 3: The engineer loses visibility during an agent task
+
+When an agent uses a separate script, the engineer may have to wait for its report to see what it sent, what the board returned, or who is using the port.
+
+**rk-serial solution.** The terminal keeps showing traffic, and the port tab and status bar show AI activity. Agent Connection shows registered tasks, control holders, and waiting requests.
+
+### Problem 4: Repetitive logs fill the agent's context
+
+Passing the full log or repeatedly reading a fixed-size tail uses tokens on duplicate output and makes rare changes hard to spot.
+
+**rk-serial solution.** L0 retains the original traffic, L1 builds a rebuildable compressed index of templates and parameters, and L2 returns match counts, changes, and evidence references. Agents can expand the original evidence when needed and follow new data with a cursor.
+
+### Problem 5: Intermittent faults are hard to record and reproduce
+
+Copying terminal output can miss the traffic around a fault. Ad hoc scripts need their own scheduling, recording, and retry logic.
+
+**rk-serial solution.** Serial Record supports duration, loop count, and capacity rules, with optional command loops and evidence export. Save repeatable batches or acceptance checks and use request IDs to avoid accidental resends.
+
+### Problem 6: Changing workstations or target systems disrupts the workflow
+
+A team may use different desktop operating systems and switch between Linux and RT-Thread targets. That can mean setting up new tooling or hunting for commands again.
+
+**rk-serial solution.** Windows x64 and Ubuntu LTS amd64 and arm64 builds use the same Agent commands and workflow. The built-in command catalog covers Linux, RT-Thread, and general commands, with a shared list for frequently used shortcuts.
+
+## Serial tool comparison
+
+**✔** means a documented built-in feature. **△** means related operations are available through macros, scripts, or APIs. **—** means the official documentation reviewed did not identify the feature. The comparison focuses on serial debugging and agent collaboration.
+
+| Capability | **rk-serial** | PuTTY | Tera Term | CoolTerm |
+| --- | --- | --- | --- | --- |
+| Windows desktop | ✔ x64 | ✔ | ✔ | ✔ |
+| Linux desktop | ✔ Ubuntu LTS, amd64 and arm64 | ✔ Linux | — | ✔ Linux |
+| Interactive serial I/O and log capture | ✔ | ✔ | ✔ | ✔ |
+| Independent sessions for multiple ports | ✔ Tabs in one window | ✔ Separate windows | ✔ Separate windows | ✔ Separate windows |
+| HEX view and transmit | ✔ | — | △ HEX debug view, TTL send | ✔ |
+| Timed command loops | ✔ In the send panel | △ Plink with a script | △ TTL loops | ✔ Repeating transmit macros |
+| Automated serial I/O | ✔ Agent skill and bridge | ✔ Plink CLI | ✔ TTL macros | ✔ Remote control API |
+| Linux and RT-Thread command catalog | ✔ Search, filter, and save shortcuts | — | — | — |
+| History suggestions and per-port drafts | ✔ | — | — | — |
+| Concurrent agent reads with independent cursors | ✔ | — | — | — |
+| Per-port agent queue and exclusive multi-step control | ✔ | — | — | — |
+| Automatic coordination of human sends and agent control | ✔ | — | △ Macros can disable keyboard input | — |
+| Agent task, holder, and queue visible in GUI | ✔ | — | — | — |
+| Recording governed by time, loop count, or capacity | ✔ Serial Record | — | △ Macros can rotate logs | △ Capture can be controlled through the API |
+| L0 evidence, L1 compressed index, and L2 queries | ✔ Summaries, changes, and evidence expansion | — | — | — |
+| Budgeted log queries and evidence references | ✔ Incremental results, pagination, and gap reporting | — | — | — |
+| Saved checks and request IDs to prevent duplicate sends | ✔ | — | — | — |
+| Explicit handoff of a port to an external flashing tool | ✔ | — | — | — |
+
+Sources include the [PuTTY serial and logging manual](https://the.earth.li/~sgtatham/putty/0.85/htmldoc/Chapter3.html), the [Plink manual](https://the.earth.li/~sgtatham/putty/0.85/htmldoc/Chapter7.html), the [Ubuntu PuTTY package](https://packages.ubuntu.com/noble/putty), the [Tera Term 5 manual](https://teratermproject.github.io/manual/5/en/), the [Tera Term TTL command reference](https://teratermproject.github.io/manual/5/en/macro/command/index.html), and the [CoolTerm official help](https://www.coolterm.net/CoolTermHelp/).
 
 ## Agent control demo
 
@@ -69,14 +125,17 @@ The table compares passing log text directly to an agent with the responses from
 
 Both benchmarks used synthetic samples. In the first, 100,000 matching lines repeated the same error and one had a different code. The query searched for `ERROR` and expanded the rare result to verify its original bytes. It used the L0 scan fallback. Actual token usage depends on the log, query, and tokenizer.
 
-## Debugging features
+## Feature highlights
 
 | Workflow | What you can do |
 | --- | --- |
+| **Deploy across platforms** | Use the same desktop workflow and Agent commands on Windows and Ubuntu. Check for updates in the app, which supports verified deltas with a full-package fallback. |
 | **Move between Linux and RT-Thread (RTT)** | Detect or set the system type per port. Browse the Linux, RT-Thread, and general command catalog, then add and reorder shortcuts in a shared list. |
-| **Watch multiple ports at once** | Each port has its own terminal and connection status. Use ANSI, HEX, timestamps, search, pause, log export, and baud-rate probing. |
+| **Watch multiple ports at once** | Each port has its own terminal and connection status. Use ANSI, HEX, timestamps, search, pause, log export, and navigation to previous sends. |
+| **Configure and diagnose a serial link** | Probe baud rates and set data bits, parity, stop bits, flow control, and receive encoding. Agents can also set DTR and RTS and send a Break through the bridge. |
 | **Send commands and repeat tests** | Get suggestions from send history and use quick commands, timed line-by-line loops, HEX, or configurable line endings. Each port keeps its own draft. |
 | **Capture traffic and investigate intermittent issues** | Start a per-port **Serial Record**, set time, loop count, or capacity rules, and optionally send commands in a loop. Review, search, and export recordings. |
+| **Trace a fault back to the evidence** | Review session archives, incident snapshots, and raw bytes. Agents can search a range and expand evidence, with gaps reported in the results. |
 | **Run a complete workflow with an agent** | The bundled bridge supports port configuration, connections, reads and writes, incremental queries, quick commands, recording, archive search and export, batches, and reusable checks. It can also coordinate an explicit handoff to an external flashing tool. |
 
 ## Screenshots
