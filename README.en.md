@@ -56,28 +56,28 @@ A team may use different desktop operating systems and switch between Linux and 
 
 ## Serial tool comparison
 
-**✔** means a documented built-in feature. **△** means related operations are available through macros, scripts, or APIs. **—** means the official documentation reviewed did not identify the feature. The comparison focuses on serial debugging and agent collaboration.
+**✔** means a documented built-in feature. **△** means related operations are available through macros, scripts, or APIs. **✗** means the official documentation reviewed did not identify the feature. The comparison focuses on serial debugging and agent collaboration.
 
 | Capability | **rk-serial** | PuTTY | Tera Term | CoolTerm |
 | --- | --- | --- | --- | --- |
 | Windows desktop | ✔ x64 | ✔ | ✔ | ✔ |
-| Linux desktop | ✔ Ubuntu LTS, amd64 and arm64 | ✔ Linux | — | ✔ Linux |
+| Linux desktop | ✔ Ubuntu LTS, amd64 and arm64 | ✔ Linux | **✗** | ✔ Linux |
 | Interactive serial I/O and log capture | ✔ | ✔ | ✔ | ✔ |
 | Independent sessions for multiple ports | ✔ Tabs in one window | ✔ Separate windows | ✔ Separate windows | ✔ Separate windows |
-| HEX view and transmit | ✔ | — | △ HEX debug view, TTL send | ✔ |
+| HEX view and transmit | ✔ | **✗** | △ HEX debug view, TTL send | ✔ |
 | Timed command loops | ✔ In the send panel | △ Plink with a script | △ TTL loops | ✔ Repeating transmit macros |
 | Automated serial I/O | ✔ Agent skill and bridge | ✔ Plink CLI | ✔ TTL macros | ✔ Remote control API |
-| Linux and RT-Thread command catalog | ✔ Search, filter, and save shortcuts | — | — | — |
-| History suggestions and per-port drafts | ✔ | — | — | — |
-| Concurrent agent reads with independent cursors | ✔ | — | — | — |
-| Per-port agent queue and exclusive multi-step control | ✔ | — | — | — |
-| Automatic coordination of human sends and agent control | ✔ | — | △ Macros can disable keyboard input | — |
-| Agent task, holder, and queue visible in GUI | ✔ | — | — | — |
-| Recording governed by time, loop count, or capacity | ✔ Serial Record | — | △ Macros can rotate logs | △ Capture can be controlled through the API |
-| L0 evidence, L1 compressed index, and L2 queries | ✔ Summaries, changes, and evidence expansion | — | — | — |
-| Budgeted log queries and evidence references | ✔ Incremental results, pagination, and gap reporting | — | — | — |
-| Saved checks and request IDs to prevent duplicate sends | ✔ | — | — | — |
-| Explicit handoff of a port to an external flashing tool | ✔ | — | — | — |
+| Linux and RT-Thread command catalog | ✔ Search, filter, and save shortcuts | **✗** | **✗** | **✗** |
+| History suggestions and per-port drafts | ✔ | **✗** | **✗** | **✗** |
+| Concurrent agent reads with independent cursors | ✔ | **✗** | **✗** | **✗** |
+| Per-port agent queue and exclusive multi-step control | ✔ | **✗** | **✗** | **✗** |
+| Automatic coordination of human sends and agent control | ✔ | **✗** | △ Macros can disable keyboard input | **✗** |
+| Agent task, holder, and queue visible in GUI | ✔ | **✗** | **✗** | **✗** |
+| Recording governed by time, loop count, or capacity | ✔ Serial Record | **✗** | △ Macros can rotate logs | △ Capture can be controlled through the API |
+| L0 evidence, L1 compressed index, and L2 queries | ✔ Summaries, changes, and evidence expansion | **✗** | **✗** | **✗** |
+| Budgeted log queries and evidence references | ✔ Incremental results, pagination, and gap reporting | **✗** | **✗** | **✗** |
+| Saved checks and request IDs to prevent duplicate sends | ✔ | **✗** | **✗** | **✗** |
+| Explicit handoff of a port to an external flashing tool | ✔ | **✗** | **✗** | **✗** |
 
 Sources include the [PuTTY serial and logging manual](https://the.earth.li/~sgtatham/putty/0.85/htmldoc/Chapter3.html), the [Plink manual](https://the.earth.li/~sgtatham/putty/0.85/htmldoc/Chapter7.html), the [Ubuntu PuTTY package](https://packages.ubuntu.com/noble/putty), the [Tera Term 5 manual](https://teratermproject.github.io/manual/5/en/), the [Tera Term TTL command reference](https://teratermproject.github.io/manual/5/en/macro/command/index.html), and the [CoolTerm official help](https://www.coolterm.net/CoolTermHelp/).
 
