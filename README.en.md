@@ -109,7 +109,7 @@ COM10 stays connected and displays real RT-Thread output. The capture shows the 
 
 ## Download and install
 
-The links below download **v3.22.6** directly. On Ubuntu, we recommend the `.deb` package for your architecture. Run `dpkg --print-architecture` to check which package you need.
+The links below download **v3.22.7** directly. On Ubuntu, we recommend the `.deb` package for your architecture. Run `dpkg --print-architecture` to check which package you need.
 
 | Platform | Download |
 | --- | --- |
@@ -186,7 +186,7 @@ rk-serial builds on the skills contributed by **@吴镜**. Thanks to **@周潼**
 
 This repository hosts public downloads and release notes.
 
-[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64-setup.exe
-[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64_en-US.msi
-[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.deb
-[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.deb
+[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_x64-setup.exe
+[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_x64_en-US.msi
+[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_amd64.deb
+[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_arm64.deb
