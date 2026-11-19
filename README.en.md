@@ -113,11 +113,11 @@ The links below download **v3.22.6** directly. On Ubuntu, we recommend the `.deb
 
 | Platform | Download |
 | --- | --- |
-| Windows 10 / 11 (x64) | [EXE installer][windows-exe] · [MSI installer][windows-msi] · [Portable ZIP][windows-zip] |
+| Windows 10 / 11 (x64) | [Recommended installer (EXE)][windows-exe] · [Managed deployment (MSI)][windows-msi] |
 | Ubuntu 22.04 / 24.04 / 26.04 LTS (amd64 / x86_64) | [amd64 Debian package][ubuntu-amd64-deb] |
 | Ubuntu 22.04 / 24.04 / 26.04 LTS (arm64 / aarch64) | [arm64 Debian package][ubuntu-arm64-deb] |
 
-- **Windows.** Run the EXE installer and follow the prompts. The installer can set up WebView2. For the portable ZIP, extract the archive and run `rk-serial-desktop.exe` with `rk-serial-bridge.exe` in the same directory.
+- **Windows.** Run the EXE installer and follow the prompts. The installer can set up WebView2. Use the MSI package for managed deployments.
 - **Ubuntu.** Install the package with `sudo apt install ./<filename>.deb`. If the app reports a serial permission error, use its permission dialog to add the current user to `dialout`, then sign out and back in.
 
 Check for updates from the About dialog. The app tries a verified delta update when a matching previous package is available and falls back to the full package when needed. [All releases](https://github.com/LiWeny16/rk-serial-releases/releases)
@@ -188,6 +188,5 @@ This repository hosts public downloads and release notes.
 
 [windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64-setup.exe
 [windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64_en-US.msi
-[windows-zip]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial-v3.22.6-portable.zip
 [ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.deb
 [ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.deb
