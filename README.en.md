@@ -109,7 +109,7 @@ COM10 stays connected and displays real RT-Thread output. The capture shows the 
 
 ## Download and install
 
-The links below download **v3.22.5** directly. On Ubuntu, we recommend the `.deb` package for your architecture. Run `dpkg --print-architecture` to check which package you need.
+The links below download **v3.22.6** directly. On Ubuntu, we recommend the `.deb` package for your architecture. Run `dpkg --print-architecture` to check which package you need.
 
 | Platform | Recommended download | Other formats |
 | --- | --- | --- |
@@ -118,7 +118,7 @@ The links below download **v3.22.5** directly. On Ubuntu, we recommend the `.deb
 | Ubuntu 22.04 / 24.04 / 26.04 LTS (arm64 / aarch64) | [arm64 Debian package][ubuntu-arm64-deb] | [arm64 AppImage][ubuntu-arm64-appimage] |
 
 - **Windows.** Run the EXE installer and follow the prompts. The installer can set up WebView2. For the portable ZIP, extract the archive and run `rk-serial-desktop.exe` with `rk-serial-bridge.exe` in the same directory.
-- **Ubuntu.** Install the package with `sudo apt install ./<filename>.deb`. To use an AppImage, make it executable and run it. If FUSE is unavailable, pass `--appimage-extract-and-run`.
+- **Ubuntu.** Install the package with `sudo apt install ./<filename>.deb`. To use an AppImage, make it executable and run it. If FUSE is unavailable, pass `--appimage-extract-and-run`. If the app reports a serial permission error, use its permission dialog to add the current user to `dialout`, then sign out and back in.
 
 Check for updates from the About dialog. The app tries a verified delta update when a matching previous package is available and falls back to the full package when needed. [All releases](https://github.com/LiWeny16/rk-serial-releases/releases)
 
@@ -186,10 +186,10 @@ rk-serial builds on the skills contributed by **@吴镜**. Thanks to **@周潼**
 
 This repository hosts public downloads and release notes.
 
-[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_x64-setup.exe
-[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_x64_en-US.msi
-[windows-zip]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial-v3.22.5-portable.zip
-[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_amd64.deb
-[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_arm64.deb
-[ubuntu-amd64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_amd64.AppImage
-[ubuntu-arm64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.5/rk-serial_3.22.5_arm64.AppImage
+[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64-setup.exe
+[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_x64_en-US.msi
+[windows-zip]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial-v3.22.6-portable.zip
+[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.deb
+[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.deb
+[ubuntu-amd64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.AppImage
+[ubuntu-arm64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.AppImage
