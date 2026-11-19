@@ -182,7 +182,7 @@ Supported platforms include Codex, Claude Code, Pi, OpenCode, Gemini CLI, GitHub
 
 ## Acknowledgments
 
-rk-serial builds on the skills contributed by **@吴镜**. Thanks to **@周潼** and **@伟鹏** for their suggestions and testing, and to our Rockchip colleagues for sharing their experience and feedback from day-to-day board development and debugging.
+rk-serial builds on the skills contributed by **@吴镜**. Thanks to **@周潼**, **@伟鹏**, and **@逸君** for their suggestions and testing, and to our Rockchip colleagues for sharing their experience and feedback from day-to-day board development and debugging.
 
 This repository hosts public downloads and release notes.
 
