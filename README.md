@@ -111,14 +111,14 @@ COM10 保持连接，终端显示实际 RT-Thread 输出。动图依次展示 Ag
 
 以下链接可直接下载 **v3.22.6**。Ubuntu 用户推荐安装与系统架构匹配的 `.deb` 包，可运行 `dpkg --print-architecture` 确认架构。
 
-| 系统 | 推荐下载 | 其他格式 |
-| --- | --- | --- |
-| Windows 10 / 11（x64） | [安装包（EXE）][windows-exe] | [MSI 安装包][windows-msi] · [绿色版（ZIP）][windows-zip] |
-| Ubuntu 22.04 / 24.04 / 26.04 LTS（amd64 / x86_64） | [amd64 安装包（DEB）][ubuntu-amd64-deb] | [amd64 便携版（AppImage）][ubuntu-amd64-appimage] |
-| Ubuntu 22.04 / 24.04 / 26.04 LTS（arm64 / aarch64） | [arm64 安装包（DEB）][ubuntu-arm64-deb] | [arm64 便携版（AppImage）][ubuntu-arm64-appimage] |
+| 系统 | 下载 |
+| --- | --- |
+| Windows 10 / 11（x64） | [安装包（EXE）][windows-exe] · [MSI 安装包][windows-msi] · [绿色版（ZIP）][windows-zip] |
+| Ubuntu 22.04 / 24.04 / 26.04 LTS（amd64 / x86_64） | [amd64 安装包（DEB）][ubuntu-amd64-deb] |
+| Ubuntu 22.04 / 24.04 / 26.04 LTS（arm64 / aarch64） | [arm64 安装包（DEB）][ubuntu-arm64-deb] |
 
 - **Windows**：运行 EXE 安装包，按向导完成安装，安装程序可引导安装 WebView2。使用绿色版时，解压后运行 `rk-serial-desktop.exe`，并将 `rk-serial-bridge.exe` 保留在同一目录。
-- **Ubuntu**：用 `sudo apt install ./<文件名>.deb` 安装。使用 AppImage 时，赋予文件执行权限后运行。没有 FUSE 时，可加上 `--appimage-extract-and-run`。如果设备提示串口权限不足，可在应用内将当前用户加入 `dialout`，注销并重新登录后生效。
+- **Ubuntu**：用 `sudo apt install ./<文件名>.deb` 安装。如果应用提示串口权限不足，可在应用内将当前用户加入 `dialout`，注销并重新登录后生效。
 
 已安装用户可通过「关于 → 检查更新」获取新版。旧安装包匹配时，应用会优先尝试经过校验的差量更新，必要时回退到完整安装包。[查看所有版本](https://github.com/LiWeny16/rk-serial-releases/releases)
 
@@ -191,5 +191,3 @@ rk-serial 在 **@吴镜** 提供的 Skills 基础上开发。感谢 **@周潼**�
 [windows-zip]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial-v3.22.6-portable.zip
 [ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.deb
 [ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.deb
-[ubuntu-amd64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_amd64.AppImage
-[ubuntu-arm64-appimage]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.6/rk-serial_3.22.6_arm64.AppImage
