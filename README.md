@@ -109,7 +109,7 @@ COM10 保持连接，终端显示实际 RT-Thread 输出。动图依次展示 Ag
 
 ## 下载与安装
 
-以下链接可直接下载 **v3.22.7**。Ubuntu 用户推荐安装与系统架构匹配的 `.deb` 包，可运行 `dpkg --print-architecture` 确认架构。
+以下链接可直接下载 **v3.24.0**。Ubuntu 用户推荐安装与系统架构匹配的 `.deb` 包，可运行 `dpkg --print-architecture` 确认架构。
 
 | 系统 | 下载 |
 | --- | --- |
@@ -186,7 +186,7 @@ rk-serial 在 **@吴镜** 提供的 Skills 基础上开发。感谢 **@周潼**�
 
 本仓库提供公开下载与版本说明。
 
-[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_x64-setup.exe
-[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_x64_en-US.msi
-[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_amd64.deb
-[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.22.7/rk-serial_3.22.7_arm64.deb
+[windows-exe]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.24.0/rk-serial_3.24.0_x64-setup.exe
+[windows-msi]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.24.0/rk-serial_3.24.0_x64_en-US.msi
+[ubuntu-amd64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.24.0/rk-serial_3.24.0_amd64.deb
+[ubuntu-arm64-deb]: https://github.com/LiWeny16/rk-serial-releases/releases/download/v3.24.0/rk-serial_3.24.0_arm64.deb
